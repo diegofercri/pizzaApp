@@ -1,13 +1,15 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
-import { Stack } from "expo-router";
-import React from "react";
 import { useLocalSearchParams } from "expo-router";
 import products from "@assets/data/products";
 import { useState } from "react";
+import { Stack } from "expo-router";
+import React from "react";
+import Button from "@components/Button";
 
 const sizes = ["S", "M", "L", "XL"];
 
 const ProductDetailsScreen = () => {
+  
   const { id } = useLocalSearchParams();
 
   const [selectedSize, setSelectedSize] = useState("M");
@@ -17,6 +19,11 @@ const ProductDetailsScreen = () => {
   // Si no existe, muestra un mensaje de error
   if (!product) {
     return <Text>Product not found</Text>;
+  }
+
+  const addToCart = () => {
+    // Aquí puedes implementar la lógica para agregar el producto al carrito
+    console.log(`Product ${product.name} with size ${selectedSize} added to cart`);
   }
 
   return (
@@ -48,6 +55,7 @@ const ProductDetailsScreen = () => {
         ))}
       </View>
       <Text style={styles.price}>{product.price}€</Text>
+      <Button text="Add to cart" onPress={addToCart}/>
     </View>
   );
 };
